@@ -1,0 +1,1255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Ultimate Sunday Showdown! – CSI Shanthi Church Sunday School</title>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --sky: #E0F2FE;
+  --sky-mid: #BAE6FD;
+  --blue1: #0EA5E9;
+  --blue2: #0284C7;
+  --blue3: #0369A1;
+  --sun: #FACC15;
+  --sun-dark: #CA8A04;
+  --sun-light: #FEF9C3;
+  --coral: #FB7185;
+  --coral-dark: #E11D48;
+  --mint: #34D399;
+  --mint-dark: #059669;
+  --purple: #A78BFA;
+  --purple-dark: #7C3AED;
+  --peach: #FDBA74;
+  --peach-dark: #EA580C;
+  --white: #FFFFFF;
+  --navy: #1E3A5F;
+  --navy-light: #2D5080;
+  --text-dark: #1E293B;
+  --text-mid: #334155;
+  --bg-page: #F0F9FF;
+  --tile-shadow: 0 4px 12px rgba(0,0,0,0.12);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Nunito', sans-serif;
+  background: var(--bg-page);
+  color: var(--text-dark);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 700px 500px at 10% 10%, rgba(14,165,233,0.18) 0%, transparent 70%),
+    radial-gradient(ellipse 600px 400px at 90% 20%, rgba(250,204,21,0.18) 0%, transparent 70%),
+    radial-gradient(ellipse 500px 400px at 50% 90%, rgba(52,211,153,0.14) 0%, transparent 70%),
+    radial-gradient(ellipse 400px 300px at 80% 80%, rgba(167,139,250,0.14) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+#app { position: relative; z-index: 1; }
+
+.shapes { position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
+.shape {
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0.12;
+  animation: floatShape var(--dur, 12s) ease-in-out infinite var(--del, 0s) alternate;
+}
+@keyframes floatShape {
+  from { transform: translateY(0) rotate(0deg); }
+  to   { transform: translateY(-40px) rotate(20deg); }
+}
+
+/* ── HEADER ── */
+header { text-align: center; padding: 2rem 1rem 1rem; }
+
+.church-name {
+  font-size: 0.82rem; font-weight: 800;
+  letter-spacing: 0.28em; text-transform: uppercase;
+  color: var(--blue2); margin-bottom: 0.4rem;
+}
+
+.game-title {
+  font-family: 'Fredoka One', cursive;
+  font-size: clamp(2.4rem, 7vw, 4.5rem);
+  color: var(--navy); letter-spacing: 0.04em; line-height: 1;
+  position: relative; display: inline-block;
+}
+.game-title span { color: var(--blue1); }
+
+.title-star {
+  display: inline-block;
+  animation: spinStar 4s linear infinite;
+  font-size: 1.8rem; vertical-align: middle; margin: 0 0.3rem;
+}
+@keyframes spinStar { to { transform: rotate(360deg); } }
+
+.subtitle {
+  font-size: 0.88rem; font-weight: 700;
+  color: var(--blue3); opacity: 0.75;
+  margin-top: 0.5rem; letter-spacing: 0.06em;
+}
+
+.divider {
+  display: flex; align-items: center; justify-content: center;
+  gap: 0.8rem; margin: 0.8rem auto 0; max-width: 400px;
+}
+.divider-line {
+  flex: 1; height: 2px;
+  background: linear-gradient(to right, transparent, var(--blue1), transparent);
+  border-radius: 2px;
+}
+.divider-cross { font-size: 1.3rem; color: var(--blue2); }
+
+/* ── SCOREBOARD ── */
+.scoreboard {
+  display: flex; justify-content: center;
+  gap: 1rem; padding: 1.2rem 1rem 0.5rem; flex-wrap: wrap;
+}
+
+.team-score {
+  background: var(--white);
+  border: 2.5px solid var(--sky-mid);
+  border-radius: 16px; padding: 0.6rem 1.2rem;
+  text-align: center; min-width: 140px; max-width: 180px;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.34,1.56,0.64,1);
+  box-shadow: var(--tile-shadow);
+}
+.team-score:nth-child(1) { border-color: #93C5FD; }
+.team-score:nth-child(2) { border-color: #FCA5A5; }
+.team-score:nth-child(3) { border-color: #6EE7B7; }
+.team-score:nth-child(4) { border-color: #C4B5FD; }
+
+.team-score.active-team {
+  transform: translateY(-4px) scale(1.05);
+  box-shadow: 0 8px 24px rgba(14,165,233,0.25);
+}
+.team-score:nth-child(1).active-team { border-color: var(--blue1); background: #EFF6FF; }
+.team-score:nth-child(2).active-team { border-color: var(--coral); background: #FFF1F2; }
+.team-score:nth-child(3).active-team { border-color: var(--mint);  background: #ECFDF5; }
+.team-score:nth-child(4).active-team { border-color: var(--purple);background: #F5F3FF; }
+
+.team-icon {
+  font-size: 1.7rem; line-height: 1; margin-bottom: 0.2rem; display: block;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+}
+
+.team-name-input {
+  background: none; border: none;
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.72rem; font-weight: 800;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  text-align: center; width: 100%; min-width: 0;
+  cursor: pointer; outline: none; color: var(--navy);
+}
+.team-score:nth-child(1) .team-name-input { color: var(--blue2); }
+.team-score:nth-child(2) .team-name-input { color: var(--coral-dark); }
+.team-score:nth-child(3) .team-name-input { color: var(--mint-dark); }
+.team-score:nth-child(4) .team-name-input { color: var(--purple-dark); }
+.team-name-input:focus { border-bottom: 1.5px solid currentColor; }
+
+.team-subtitle {
+  font-size: 0.58rem; font-weight: 700; color: #94A3B8;
+  letter-spacing: 0.06em; margin-top: -1px; margin-bottom: 1px;
+}
+
+.team-points {
+  font-family: 'Fredoka One', cursive;
+  font-size: 2rem; color: var(--navy); line-height: 1.1;
+  transition: all 0.3s cubic-bezier(0.34,1.56,0.64,1);
+}
+
+.turn-badge {
+  font-size: 0.6rem; font-weight: 800; color: var(--blue1);
+  margin-top: 0.15rem; min-height: 0.9rem;
+  letter-spacing: 0.1em; text-transform: uppercase;
+}
+
+/* ── BOARD ── */
+.board-wrapper { max-width: 1020px; margin: 1.2rem auto 0; padding: 0 0.8rem; }
+.board { display: grid; grid-template-columns: repeat(5, 1fr); gap: 7px; }
+
+.cat-header {
+  border-radius: 12px; padding: 0.65rem 0.3rem;
+  text-align: center; font-family: 'Fredoka One', cursive;
+  font-size: clamp(0.6rem, 1.3vw, 0.8rem); line-height: 1.3;
+  display: flex; align-items: center; justify-content: center;
+  min-height: 68px; box-shadow: var(--tile-shadow); letter-spacing: 0.02em;
+}
+.cat-header:nth-child(1) { background: #DBEAFE; color: #1D4ED8; }
+.cat-header:nth-child(2) { background: #EDE9FE; color: #5B21B6; }
+.cat-header:nth-child(3) { background: #D1FAE5; color: #065F46; }
+.cat-header:nth-child(4) { background: #FEF3C7; color: #92400E; }
+.cat-header:nth-child(5) { background: #FFE4E6; color: #9F1239; }
+.cat-emoji { display: block; font-size: 1.3rem; margin-bottom: 3px; }
+
+.tile {
+  border-radius: 12px; min-height: 65px;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.34,1.56,0.64,1);
+  position: relative; overflow: hidden; box-shadow: var(--tile-shadow);
+}
+.tile::after {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 40%;
+  background: rgba(255,255,255,0.18);
+  border-radius: 12px 12px 50% 50% / 12px 12px 30px 30px;
+  pointer-events: none;
+}
+.tile:hover:not(.used) {
+  transform: translateY(-5px) scale(1.05);
+  box-shadow: 0 12px 28px rgba(0,0,0,0.18); z-index: 2;
+}
+.tile:active:not(.used) { transform: scale(0.96); }
+
+.tile-value {
+  font-family: 'Fredoka One', cursive;
+  font-size: clamp(1.05rem, 2.6vw, 1.5rem);
+  color: white; text-shadow: 0 2px 6px rgba(0,0,0,0.25);
+  position: relative; z-index: 1;
+}
+
+.tile[data-pts="100"] { background: linear-gradient(160deg, #60A5FA, #3B82F6); }
+.tile[data-pts="200"] { background: linear-gradient(160deg, #818CF8, #6366F1); }
+.tile[data-pts="300"] { background: linear-gradient(160deg, #A78BFA, #7C3AED); }
+.tile[data-pts="400"] { background: linear-gradient(160deg, #F472B6, #DB2777); }
+.tile[data-pts="500"] { background: linear-gradient(160deg, #FB923C, #EA580C); }
+
+.tile.spell-bee { outline: 3px dashed #FACC15; outline-offset: -6px; }
+
+.tile.used {
+  background: #E2E8F0 !important; box-shadow: none;
+  cursor: default; outline: none;
+}
+.tile.used .tile-value { opacity: 0; }
+.tile.used::after { display: none; }
+
+/* ── MODAL (shared base) ── */
+.overlay {
+  display: none; position: fixed; inset: 0;
+  background: rgba(15,23,42,0.7);
+  z-index: 100; align-items: center; justify-content: center;
+  padding: 1rem; backdrop-filter: blur(4px);
+}
+.overlay.open { display: flex; }
+
+.modal {
+  background: var(--white); border-radius: 20px;
+  max-width: 680px; width: 100%; max-height: 90vh; overflow-y: auto;
+  padding: 2rem; position: relative;
+  animation: modalIn 0.35s cubic-bezier(0.34,1.56,0.64,1);
+  box-shadow: 0 24px 60px rgba(0,0,0,0.3);
+}
+@keyframes modalIn {
+  from { transform: scale(0.7) translateY(50px); opacity: 0; }
+  to   { transform: scale(1) translateY(0); opacity: 1; }
+}
+
+/* ── PRE-QUESTION PICKER OVERLAY ── */
+.pre-overlay {
+  display: none; position: fixed; inset: 0;
+  background: rgba(15,23,42,0.75);
+  z-index: 110; align-items: center; justify-content: center;
+  padding: 1rem; backdrop-filter: blur(6px);
+}
+.pre-overlay.open { display: flex; }
+
+.pre-modal {
+  background: var(--white); border-radius: 24px;
+  max-width: 440px; width: 100%;
+  padding: 2rem 2rem 1.8rem;
+  animation: modalIn 0.35s cubic-bezier(0.34,1.56,0.64,1);
+  box-shadow: 0 28px 70px rgba(0,0,0,0.35);
+  position: relative;
+}
+
+/* Coloured top stripe */
+.pre-modal-stripe {
+  position: absolute; top: 0; left: 0; right: 0;
+  height: 6px; border-radius: 24px 24px 0 0;
+}
+.pre-modal-stripe.bee   { background: linear-gradient(90deg,#FACC15,#F59E0B); }
+.pre-modal-stripe.verse { background: linear-gradient(90deg,#34D399,#059669); }
+
+.pre-modal-icon {
+  font-size: 3.2rem; display: block;
+  text-align: center; margin: 0.5rem 0 0.6rem;
+  line-height: 1;
+  animation: bouncePop 0.6s cubic-bezier(0.34,1.56,0.64,1);
+}
+@keyframes bouncePop {
+  from { transform: scale(0); opacity: 0; }
+  to   { transform: scale(1); opacity: 1; }
+}
+
+.pre-modal-title {
+  font-family: 'Fredoka One', cursive;
+  font-size: 1.55rem; color: var(--navy);
+  text-align: center; margin-bottom: 0.25rem;
+}
+
+.pre-modal-class {
+  text-align: center; margin-bottom: 1.2rem;
+  font-size: 0.78rem; font-weight: 800;
+  letter-spacing: 0.15em; text-transform: uppercase;
+}
+.pre-modal-class.bee   { color: #D97706; }
+.pre-modal-class.verse { color: #059669; }
+
+.pre-count-row {
+  display: flex; gap: 0.5rem; justify-content: center; margin-bottom: 1.2rem;
+}
+
+.pre-picked-area {
+  background: #F8FAFC; border-radius: 14px;
+  padding: 0.9rem 1rem; margin-bottom: 1.2rem;
+  min-height: 90px; display: flex;
+  flex-direction: column; gap: 0.5rem; justify-content: center;
+}
+
+.pre-picked-placeholder {
+  color: #CBD5E1; font-size: 0.82rem;
+  font-weight: 600; text-align: center;
+}
+
+.pre-picked-name-row {
+  display: flex; align-items: center; gap: 0.6rem;
+}
+.pre-picked-number {
+  width: 26px; height: 26px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.75rem; font-weight: 900; color: white; flex-shrink: 0;
+}
+.pre-picked-number.bee   { background: #F59E0B; }
+.pre-picked-number.verse { background: #10B981; }
+
+.pre-picked-name-tag {
+  border-radius: 10px; padding: 0.28rem 0.85rem;
+  font-size: 0.9rem; font-weight: 700;
+}
+.pre-picked-name-tag.bee   { background: #FFFBEB; border: 1.5px solid #FCD34D; color: #92400E; }
+.pre-picked-name-tag.verse { background: #F0FDF4; border: 1.5px solid #6EE7B7; color: #065F46; }
+
+/* Confirmed state */
+.pre-confirmed-banner {
+  display: none;
+  background: #F0FDF4; border: 2px solid #34D399;
+  border-radius: 12px; padding: 0.7rem 1rem;
+  margin-bottom: 1.1rem;
+  font-size: 0.85rem; font-weight: 700; color: #065F46;
+  text-align: center; align-items: center; justify-content: center; gap: 0.5rem;
+}
+.pre-confirmed-banner.show { display: flex; }
+
+.pre-btn-row {
+  display: flex; flex-direction: column; gap: 0.6rem;
+}
+
+/* ── QUESTION MODAL content ── */
+.modal-cat-bar {
+  display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;
+}
+.modal-cat-name {
+  font-size: 0.7rem; font-weight: 800;
+  letter-spacing: 0.2em; text-transform: uppercase; color: var(--blue2);
+}
+.modal-pts {
+  font-family: 'Fredoka One', cursive;
+  font-size: 3rem; color: var(--navy); line-height: 1; margin-bottom: 0.3rem;
+}
+.modal-type-badge {
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  border-radius: 50px; padding: 0.25rem 0.9rem;
+  font-size: 0.72rem; font-weight: 800;
+  letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 1.2rem;
+}
+.badge-trivia { background: #DBEAFE; color: #1D4ED8; }
+.badge-spell  { background: #FEF9C3; color: #92400E; }
+.badge-verse  { background: #D1FAE5; color: #065F46; }
+.badge-tf     { background: #FFE4E6; color: #9F1239; }
+
+.modal-question {
+  font-size: 1.2rem; font-weight: 700; line-height: 1.6;
+  color: var(--text-dark); margin-bottom: 1.4rem;
+}
+
+/* who answered banner inside question modal */
+.answered-by-banner {
+  display: flex; align-items: center; gap: 0.5rem;
+  border-radius: 10px; padding: 0.5rem 0.9rem;
+  margin-bottom: 1rem; font-size: 0.8rem; font-weight: 700;
+}
+.answered-by-banner.bee   { background: #FFFBEB; border: 1.5px solid #FCD34D; color: #92400E; }
+.answered-by-banner.verse { background: #F0FDF4; border: 1.5px solid #6EE7B7; color: #065F46; }
+
+/* Scramble */
+.scramble-pool {
+  display: flex; flex-wrap: wrap; gap: 8px;
+  min-height: 46px; background: #F1F5F9;
+  border-radius: 10px; padding: 0.5rem; margin-bottom: 0.5rem;
+}
+.zone-label {
+  font-size: 0.65rem; font-weight: 800;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  color: #64748B; margin-bottom: 0.3rem;
+}
+.scramble-answer-zone {
+  display: flex; flex-wrap: wrap; gap: 8px;
+  min-height: 52px; background: #F0FDF4;
+  border: 2px dashed #6EE7B7; border-radius: 10px;
+  padding: 0.5rem; margin-bottom: 0.7rem;
+}
+.scramble-chip {
+  background: var(--blue1); border-radius: 8px;
+  padding: 0.4rem 0.85rem; font-size: 0.82rem; font-weight: 700;
+  color: white; cursor: pointer;
+  transition: all 0.15s cubic-bezier(0.34,1.56,0.64,1);
+  user-select: none; box-shadow: 0 2px 6px rgba(0,0,0,0.12);
+}
+.scramble-chip:hover { transform: scale(1.08); }
+.scramble-chip.placed { background: #059669; color: white; }
+
+/* Answer reveal */
+.answer-box {
+  background: #ECFDF5; border: 2px solid #6EE7B7;
+  border-radius: 12px; padding: 0.9rem 1.1rem;
+  margin-bottom: 1.2rem; display: none;
+  animation: revealAns 0.4s cubic-bezier(0.34,1.56,0.64,1);
+}
+.answer-box.visible { display: block; }
+@keyframes revealAns {
+  from { transform: scale(0.95) translateY(10px); opacity: 0; }
+  to   { transform: scale(1) translateY(0); opacity: 1; }
+}
+.answer-label {
+  font-size: 0.65rem; font-weight: 800; letter-spacing: 0.2em;
+  text-transform: uppercase; color: #059669; margin-bottom: 0.3rem;
+}
+.answer-text { font-size: 1.05rem; font-weight: 700; color: #065F46; line-height: 1.5; }
+
+/* Team selector */
+.team-selector { margin-bottom: 1rem; }
+.team-selector > label {
+  display: block; font-size: 0.68rem; font-weight: 800;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--navy); margin-bottom: 0.5rem;
+}
+.team-btns { display: flex; gap: 8px; flex-wrap: wrap; }
+.team-btn {
+  padding: 0.35rem 0.95rem; border-radius: 50px;
+  border: 2px solid #CBD5E1; background: white;
+  font-family: 'Nunito', sans-serif; font-size: 0.8rem; font-weight: 800;
+  cursor: pointer; transition: all 0.15s; color: var(--text-mid);
+}
+.team-btn:hover { border-color: var(--blue1); color: var(--blue2); }
+.team-btn.sel-0 { background: #EFF6FF; border-color: var(--blue1);   color: var(--blue2); }
+.team-btn.sel-1 { background: #FFF1F2; border-color: var(--coral);   color: var(--coral-dark); }
+.team-btn.sel-2 { background: #ECFDF5; border-color: var(--mint);    color: var(--mint-dark); }
+.team-btn.sel-3 { background: #F5F3FF; border-color: var(--purple);  color: var(--purple-dark); }
+
+/* ── UNIFIED BUTTON SYSTEM ── */
+.btn-row { display: flex; gap: 0.65rem; flex-wrap: wrap; margin-top: 1rem; }
+
+.btn,
+.btn-pick-kids,
+.btn-shuffle-kids,
+.btn-close-kids,
+.count-btn,
+.btn-restart {
+  display: inline-flex; align-items: center; justify-content: center; gap: 0.4rem;
+  padding: 0.6rem 1.25rem; border-radius: 50px;
+  font-family: 'Nunito', sans-serif; font-size: 0.88rem; font-weight: 800;
+  letter-spacing: 0.03em; cursor: pointer; border: none;
+  position: relative; overflow: hidden;
+  transition: transform 0.18s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.18s, background 0.18s;
+  text-decoration: none; white-space: nowrap;
+}
+.btn::after,.btn-pick-kids::after,.btn-shuffle-kids::after,
+.btn-close-kids::after,.count-btn::after,.btn-restart::after {
+  content: ''; position: absolute; inset: 0;
+  background: rgba(255,255,255,0.25); border-radius: 50px;
+  opacity: 0; transform: scale(0.6);
+  transition: opacity 0.35s, transform 0.35s; pointer-events: none;
+}
+.btn:active::after,.btn-pick-kids:active::after,.btn-shuffle-kids:active::after,
+.btn-close-kids:active::after,.count-btn:active::after,.btn-restart:active::after {
+  opacity: 1; transform: scale(1); transition: none;
+}
+.btn:active,.btn-pick-kids:active,.btn-shuffle-kids:active,
+.btn-close-kids:active,.count-btn:active,.btn-restart:active { transform: scale(0.96); }
+
+/* Reveal */
+.btn-reveal {
+  background: var(--sun); color: var(--navy); flex: 1; min-width: 130px;
+  box-shadow: 0 4px 14px rgba(250,204,21,0.35);
+  animation: revealPulse 2.4s ease-in-out infinite;
+}
+@keyframes revealPulse {
+  0%,100% { box-shadow: 0 4px 14px rgba(250,204,21,0.35); }
+  50%     { box-shadow: 0 4px 22px rgba(250,204,21,0.7); }
+}
+.btn-reveal:hover { background: #FDE047; transform: translateY(-2px); animation: none; box-shadow: 0 6px 20px rgba(250,204,21,0.55); }
+
+/* Correct */
+.btn-correct {
+  background: #059669; color: white; flex: 1;
+  box-shadow: 0 4px 14px rgba(5,150,105,0.3);
+  animation: correctBounce 2s ease-in-out infinite;
+}
+@keyframes correctBounce {
+  0%,100% { transform: translateY(0); }
+  50%     { transform: translateY(-3px); }
+}
+.btn-correct:hover { background: #047857; animation: none; transform: translateY(-3px); box-shadow: 0 8px 20px rgba(5,150,105,0.4); }
+
+/* Wrong */
+.btn-wrong {
+  background: #DC2626; color: white; flex: 1;
+  box-shadow: 0 4px 14px rgba(220,38,38,0.25);
+}
+.btn-wrong:hover { background: #B91C1C; transform: translateY(-2px); box-shadow: 0 6px 20px rgba(220,38,38,0.4); }
+
+/* Close */
+.btn-close, .btn-close-kids {
+  background: #F1F5F9; color: #64748B; border: 2px solid #E2E8F0; box-shadow: none;
+}
+.btn-close:hover, .btn-close-kids:hover { background: #E2E8F0; transform: translateY(-1px); }
+
+/* Shuffle */
+.btn-shuffle-kids {
+  background: #0EA5E9; color: white; box-shadow: 0 4px 14px rgba(14,165,233,0.35);
+}
+.btn-shuffle-kids:hover { background: #0284C7; transform: translateY(-2px); box-shadow: 0 6px 20px rgba(14,165,233,0.5); }
+
+/* Count toggle */
+.count-btn {
+  background: #F8FAFC; color: var(--text-mid);
+  border: 2px solid #E2E8F0; padding: 0.45rem 1rem; box-shadow: none;
+}
+.count-btn:hover { border-color: #F59E0B; color: #92400E; }
+.count-btn.active { background: #FEF3C7; border-color: #F59E0B; color: #92400E; box-shadow: 0 2px 8px rgba(245,158,11,0.2); }
+
+/* View Question — the CTA inside pre-modal */
+.btn-view-q {
+  background: linear-gradient(135deg, var(--blue1), var(--blue2));
+  color: white; font-size: 0.95rem;
+  box-shadow: 0 5px 18px rgba(14,165,233,0.4);
+  width: 100%; justify-content: center;
+}
+.btn-view-q:hover { background: linear-gradient(135deg,#38BDF8,#0EA5E9); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(14,165,233,0.5); }
+.btn-view-q:disabled {
+  background: #CBD5E1; color: #94A3B8; box-shadow: none; cursor: not-allowed;
+  transform: none !important;
+}
+
+/* Skip (no picker needed) */
+.btn-skip-to-q {
+  background: #F1F5F9; color: #64748B; border: 2px solid #E2E8F0;
+  font-size: 0.78rem; box-shadow: none;
+  width: 100%; justify-content: center;
+}
+.btn-skip-to-q:hover { background: #E2E8F0; transform: translateY(-1px); }
+
+/* Restart */
+.btn-restart {
+  background: var(--blue1); color: white;
+  padding: 0.8rem 2.5rem;
+  font-family: 'Fredoka One', cursive; font-size: 1.1rem;
+  box-shadow: 0 6px 20px rgba(14,165,233,0.35);
+}
+.btn-restart:hover { transform: scale(1.05); background: #0284C7; box-shadow: 0 8px 24px rgba(14,165,233,0.45); }
+
+/* End shimmer */
+.btn-end { position: relative; overflow: hidden; }
+.btn-end::before {
+  content: ''; position: absolute; top: 0; left: -75%;
+  width: 50%; height: 100%;
+  background: linear-gradient(120deg, transparent, rgba(255,255,255,0.3), transparent);
+  animation: shimmer 3s ease-in-out infinite;
+}
+@keyframes shimmer { 0% { left:-75%; } 60%,100% { left:130%; } }
+
+/* Confetti */
+#confetti-canvas { position: fixed; inset: 0; pointer-events: none; z-index: 200; }
+
+/* Toast */
+.toast {
+  position: fixed; top: 1.2rem; left: 50%;
+  transform: translateX(-50%) translateY(-100px);
+  background: var(--navy); color: white;
+  font-family: 'Fredoka One', cursive; font-size: 1.1rem;
+  padding: 0.7rem 2rem; border-radius: 50px; z-index: 300;
+  transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1);
+  white-space: nowrap; box-shadow: 0 8px 24px rgba(0,0,0,0.25);
+}
+.toast.show { transform: translateX(-50%) translateY(0); }
+.toast.correct { background: #059669; }
+.toast.wrong   { background: #DC2626; }
+
+/* Winner */
+.winner-screen {
+  display: none; position: fixed; inset: 0;
+  background: rgba(240,249,255,0.97);
+  z-index: 150; align-items: center; justify-content: center;
+  flex-direction: column; text-align: center; padding: 2rem;
+}
+.winner-screen.open { display: flex; }
+.winner-trophy { font-size: 5.5rem; animation: trophyIn 0.6s cubic-bezier(0.34,1.56,0.64,1); }
+@keyframes trophyIn { from { transform: scale(0) rotate(-20deg); } to { transform: scale(1) rotate(0); } }
+.winner-title {
+  font-family: 'Fredoka One', cursive;
+  font-size: clamp(2rem, 6vw, 3.5rem); color: var(--navy); margin: 0.8rem 0 0.4rem;
+}
+.winner-subtitle { font-size: 1.1rem; color: var(--blue3); margin-bottom: 1.5rem; font-weight: 700; }
+.final-score-row { font-size: 1rem; font-weight: 700; margin: 0.3rem 0; color: var(--text-mid); }
+.final-score-row.top { font-size: 1.3rem; color: var(--navy); }
+.end-btn-wrap { text-align: center; margin-top: 1.5rem; padding-bottom: 2.5rem; }
+
+@media (max-width:600px) {
+  .board { gap: 4px; }
+  .tile { min-height: 52px; }
+  .tile-value { font-size: 0.95rem; }
+  .cat-header { font-size: 0.52rem; min-height: 56px; padding: 0.4rem 0.2rem; }
+  .modal, .pre-modal { padding: 1.2rem; }
+  .modal-question { font-size: 1rem; }
+}
+</style>
+</head>
+<body>
+
+<div class="shapes" id="shapes"></div>
+<canvas id="confetti-canvas"></canvas>
+
+<div id="app">
+  <header>
+    <div class="church-name">✝ CSI Shanthi Church · Sunday School</div>
+    <div class="game-title">
+      <span class="title-star">✦</span>The Ultimate <span>Sunday Showdown</span><span class="title-star">✦</span>
+    </div>
+    <div class="subtitle">May 2026 · Ages 6 – 18</div>
+    <div class="divider">
+      <div class="divider-line"></div>
+      <div class="divider-cross">✝</div>
+      <div class="divider-line"></div>
+    </div>
+  </header>
+
+  <div class="scoreboard" id="scoreboard"></div>
+
+  <div class="board-wrapper">
+    <div class="board" id="board"></div>
+  </div>
+
+  <div class="end-btn-wrap">
+    <button class="btn btn-close btn-end" onclick="showWinner()" style="font-size:0.82rem;padding:0.5rem 1.5rem;border-radius:50px;">
+      🏆 End Game &amp; Crown Winner
+    </button>
+  </div>
+</div>
+
+<!-- ══ PRE-QUESTION KIDS PICKER OVERLAY ══ -->
+<div class="pre-overlay" id="pre-overlay">
+  <div class="pre-modal" id="pre-modal">
+    <div class="pre-modal-stripe" id="pre-stripe"></div>
+    <span class="pre-modal-icon" id="pre-icon"></span>
+    <div class="pre-modal-title" id="pre-title"></div>
+    <div class="pre-modal-class" id="pre-class-label"></div>
+
+    <!-- Count toggle -->
+    <div class="pre-count-row">
+      <button class="count-btn active" id="pre-cnt-2" onclick="preSetCount(2)">Pick 2</button>
+      <button class="count-btn"        id="pre-cnt-3" onclick="preSetCount(3)">Pick 3</button>
+    </div>
+
+    <!-- Picked names area -->
+    <div class="pre-picked-area" id="pre-picked-area">
+      <div class="pre-picked-placeholder">Press <strong>Shuffle</strong> to randomly pick kids ✨</div>
+    </div>
+
+    <!-- Confirmed banner -->
+    <div class="pre-confirmed-banner" id="pre-confirmed-banner">
+      ✅ Kids selected — ready to view the question!
+    </div>
+
+    <!-- Buttons -->
+    <div class="pre-btn-row">
+      <button class="btn-shuffle-kids" id="pre-shuffle-btn" onclick="preShuffle()" style="width:100%;justify-content:center;">🔀 Shuffle Kids</button>
+      <button class="btn btn-view-q" id="pre-view-btn" onclick="proceedToQuestion()" disabled>👁 View Question →</button>
+      <button class="btn btn-skip-to-q" onclick="skipToQuestion()">Skip &amp; View Question Directly</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ QUESTION MODAL ══ -->
+<div class="overlay" id="overlay">
+  <div class="modal" id="modal">
+    <div class="modal-cat-bar">
+      <span id="modal-cat-emoji" style="font-size:1.1rem;"></span>
+      <span class="modal-cat-name" id="modal-cat-name"></span>
+    </div>
+    <div class="modal-pts" id="modal-pts"></div>
+    <div class="modal-type-badge" id="modal-type"></div>
+
+    <!-- who's answering this question -->
+    <div class="answered-by-banner" id="answered-by-banner" style="display:none"></div>
+
+    <div class="team-selector">
+      <label>Which team is answering?</label>
+      <div class="team-btns" id="team-btns"></div>
+    </div>
+
+    <div class="modal-question" id="modal-q"></div>
+
+    <div id="scramble-area" style="display:none">
+      <div class="zone-label">Arrange the pieces:</div>
+      <div class="scramble-pool" id="scramble-pool"></div>
+      <div class="zone-label">Your answer:</div>
+      <div class="scramble-answer-zone" id="scramble-zone"></div>
+      <button class="btn btn-close" onclick="clearScramble()" style="font-size:0.75rem;padding:0.3rem 0.9rem;margin-bottom:0.6rem;border-radius:50px;">↺ Reset pieces</button>
+    </div>
+
+    <div class="answer-box" id="answer-box">
+      <div class="answer-label">✓ Correct Answer</div>
+      <div class="answer-text" id="answer-text"></div>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn btn-reveal"  id="btn-reveal"  onclick="revealAnswer()">👁 Reveal Answer</button>
+      <button class="btn btn-correct" id="btn-correct" onclick="scoreTeam(true)"  style="display:none">✓ Correct!</button>
+      <button class="btn btn-wrong"   id="btn-wrong"   onclick="scoreTeam(false)" style="display:none">✗ Wrong</button>
+      <button class="btn btn-close"   onclick="closeModal()">✕ Close</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ WINNER SCREEN ══ -->
+<div class="winner-screen" id="winner-screen">
+  <div class="winner-trophy">🏆</div>
+  <div class="winner-title" id="winner-title">Congratulations!</div>
+  <div class="winner-subtitle" id="winner-subtitle"></div>
+  <div id="final-scores" style="margin-bottom:1rem;"></div>
+  <button class="btn-restart" onclick="restartGame()">↺ Play Again</button>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const CATEGORIES = [
+  { name:"The Word & The Workshop", short:"Word & Workshop",    emoji:"📖", source:"May 10 Lesson" },
+  { name:"Houses & Kingdoms",       short:"Houses & Kingdoms",  emoji:"👑", source:"May 17 Lesson" },
+  { name:"God's Masterpieces",      short:"God's Masterpieces", emoji:"✨", source:"May 24 Lesson" },
+  { name:"Bible All-Stars",         short:"Bible All-Stars",    emoji:"⭐", source:"General"       },
+  { name:"Miracles & Places",       short:"Miracles & Places",  emoji:"🌊", source:"General"       }
+];
+
+const QUESTIONS = [
+  // Col 0: Word & Workshop — Spell Bee at row 1 (200 pts)
+  [
+    { pts:100, type:"Trivia",         badge:"badge-trivia", spellBee:false,
+      q:"According to John 1:1, what special name or title is given to Jesus to show He existed with God before creation?",
+      ans:'"The Word" — also called Logos in Greek.', scramble:null },
+    { pts:200, type:"Spell Bee 🐝",   badge:"badge-spell",  spellBee:true,
+      q:"Spell the name of the earthly father figure who taught young Jesus carpentry in his workshop.",
+      ans:"J – O – S – E – P – H", scramble:null },
+    { pts:300, type:"Verse Scramble", badge:"badge-verse",  spellBee:false,
+      q:"Arrange these pieces to form John 1:1:",
+      ans:'"In the beginning was the Word, and the Word was with God, and the Word was God."',
+      scramble:["In the beginning was the Word,","and the Word was with God,","and the Word was God."] },
+    { pts:400, type:"True or False",  badge:"badge-tf",     spellBee:false,
+      q:"TRUE or FALSE: According to Colossians 1:16 and John 1:3, angels have the power to create things out of nothing just like God does.",
+      ans:"FALSE — Only God has the power to create. Angels cannot create ex nihilo.", scramble:null },
+    { pts:500, type:"Trivia",         badge:"badge-trivia", spellBee:false,
+      q:"Even at age 12, Jesus was found sitting in a specific place, learning and interpreting the scriptures. What was this place?",
+      ans:"The Temple in Jerusalem (Luke 2:46–47)", scramble:null }
+  ],
+  // Col 1: Houses & Kingdoms — Spell Bee at row 0 (100 pts)
+  [
+    { pts:100, type:"Spell Bee 🐝",   badge:"badge-spell",  spellBee:true,
+      q:"Spell the name of the brave shepherd boy who became king and was promised his royal lineage would never be wiped out.",
+      ans:"D – A – V – I – D", scramble:null },
+    { pts:200, type:"Trivia",         badge:"badge-trivia", spellBee:false,
+      q:"God promised King David: \"My steadfast love will never depart.\" To which specific descendant does this ultimate eternal kingdom belong?",
+      ans:"Jesus Christ — the Son of David", scramble:null },
+    { pts:300, type:"Verse Scramble", badge:"badge-verse",  spellBee:false,
+      q:"Arrange these pieces to form the reference for God's covenant with King David:",
+      ans:"2 Samuel 7:12 — the Davidic covenant promise.",
+      scramble:["2","Samuel","7:12"] },
+    { pts:400, type:"Trivia",         badge:"badge-trivia", spellBee:false,
+      q:"After David's reign, the nation split in two. What was the Northern Kingdom called and what was the Southern Kingdom called?",
+      ans:"Northern Kingdom = Kingdom of Israel · Southern Kingdom = Kingdom of Judah", scramble:null },
+    { pts:500, type:"Trivia",         badge:"badge-trivia", spellBee:false,
+      q:"Both kingdoms were eventually conquered and taken into exile. Name the empire that captured the North, and the empire that captured the South.",
+      ans:"North → Captured by Assyria · South → Captured by Babylon", scramble:null }
+  ],
+  // Col 2: God's Masterpieces — Spell Bee at row 2 (300 pts)
+  [
+    { pts:100, type:"Trivia",         badge:"badge-trivia", spellBee:false,
+      q:"The Apostle Paul wrote that we are God's masterpiece. What is the original Greek word he used — meaning a unique work of art?",
+      ans:"Poiema (ποίημα) — Ephesians 2:10", scramble:null },
+    { pts:200, type:"Verse Scramble", badge:"badge-verse",  spellBee:false,
+      q:"Arrange these pieces to find the verse where Paul says God planned good works ahead of time for His masterpieces:",
+      ans:"Ephesians 2:10 — \"For we are God's handiwork, created in Christ Jesus to do good works.\"",
+      scramble:["Ephesians","2:10"] },
+    { pts:300, type:"Spell Bee 🐝",   badge:"badge-spell",  spellBee:true,
+      q:"Spell the word Paul uses for us — a beautiful, unique work of art that takes individual focus and care.",
+      ans:"M – A – S – T – E – R – P – I – E – C – E", scramble:null },
+    { pts:400, type:"Trivia",         badge:"badge-trivia", spellBee:false,
+      q:"The teacher compared an ordinary car to an Akira Nakai custom Porsche to show what a masterpiece looks like. Name the famous Indian cricketer used as an example of an athletic masterpiece.",
+      ans:"Virat Kohli", scramble:null },
+    { pts:500, type:"Trivia",         badge:"badge-trivia", spellBee:false,
+      q:"The lesson highlighted the futuristic Heydar Aliyev Center building as an architectural masterpiece. Name the legendary female architect who designed it.",
+      ans:"Zaha Hadid", scramble:null }
+  ],
+  // Col 3: Bible All-Stars — Spell Bee at row 3 (400 pts)
+  [
+    { pts:100, type:"Trivia",         badge:"badge-trivia", spellBee:false,
+      q:"God commanded this righteous man to build a massive wooden ark to save his family and pairs of every animal from a worldwide flood. Who was he?",
+      ans:"Noah", scramble:null },
+    { pts:200, type:"Verse Scramble", badge:"badge-verse",  spellBee:false,
+      q:"Unscramble this verse about courage from Joshua 1:9:",
+      ans:'"Be strong and courageous... the Lord your God is with you wherever you go."',
+      scramble:["Be strong and courageous...","the Lord your God","is with you wherever you go."] },
+    { pts:300, type:"Trivia",         badge:"badge-trivia", spellBee:false,
+      q:"This Old Testament prophet was thrown into a den of hungry lions because he refused to stop praying to God — yet he emerged completely unharmed the next morning. Who was he?",
+      ans:"Daniel (Daniel 6)", scramble:null },
+    { pts:400, type:"Spell Bee 🐝",   badge:"badge-spell",  spellBee:true,
+      q:"Spell the name of the very first man God created in the Garden of Eden.",
+      ans:"A – D – A – M", scramble:null },
+    { pts:500, type:"Trivia",         badge:"badge-trivia", spellBee:false,
+      q:"Before becoming a courageous queen who saved her Jewish people from Haman's wicked plot, what was Queen Esther's original Hebrew name?",
+      ans:"Hadassah (Esther 2:7)", scramble:null }
+  ],
+  // Col 4: Miracles & Places — Spell Bee at row 0 (100 pts)
+  [
+    { pts:100, type:"Spell Bee 🐝",   badge:"badge-spell",  spellBee:true,
+      q:"Spell the name of the body of water God miraculously split so Moses and the Israelites could walk through on dry land.",
+      ans:"R – E – D  S – E – A", scramble:null },
+    { pts:200, type:"Trivia",         badge:"badge-trivia", spellBee:false,
+      q:"When Jesus fed over 5,000 hungry people who came to hear Him preach, what small lunch did He start with?",
+      ans:"Five loaves of bread and two fish (John 6:9)", scramble:null },
+    { pts:300, type:"Verse Scramble", badge:"badge-verse",  spellBee:false,
+      q:"Rearrange these classic fragments from Psalm 23:1:",
+      ans:'"The Lord is my shepherd; I shall not want."',
+      scramble:["The Lord","is my shepherd;","I shall not want."] },
+    { pts:400, type:"Trivia",         badge:"badge-trivia", spellBee:false,
+      q:"The walls of this ancient, heavily fortified city came tumbling down after Joshua's army marched around it for seven days and blew their trumpets. What city was it?",
+      ans:"Jericho (Joshua 6)", scramble:null },
+    { pts:500, type:"Trivia",         badge:"badge-trivia", spellBee:false,
+      q:"Jesus performed His very first public miracle at a lively wedding celebration. Where was it, and what did He do?",
+      ans:"At a wedding in Cana of Galilee — He turned water into high-quality wine (John 2:1–11)", scramble:null }
+  ]
+];
+
+// ── State ──
+let teams = [
+  { name:"Soaring Eagles",   pts:0, icon:"🦅" },
+  { name:"RCB",              pts:0, subtitle:"Royal Christ Believers",    icon:"👑" },
+  { name:"Praying Panthers", pts:0, icon:"🐾" },
+  { name:"CSK",              pts:0, subtitle:"Christian Salvation Kingdom", icon:"✝️" }
+];
+let used      = Array.from({length:5}, () => Array(5).fill(false));
+let activeTeam   = null;
+let currentTile  = null;
+
+// Pre-picker state
+let prePickerType    = null;   // 'bee' | 'verse' | null
+let prePickCount     = 2;
+let prePickedKids    = [];
+let prePickConfirmed = false;
+let pendingTile      = null;   // {col,row} waiting for picker
+
+const PRIMARY_KIDS = [
+  "Abigail","Benjamin","Caleb","Damaris","Eliana","Felix","Grace","Hannah",
+  "Isaac","Joanna","Kevin","Lydia","Matthew","Naomi","Oliver","Priya",
+  "Quinn","Ruth","Samuel","Tabitha","Uma","Victor","Wendy","Xena","Yosef","Zara"
+];
+const JUNIOR_KIDS = [
+  "Aaron","Bethany","Christopher","Diana","Elijah","Faith","George","Hope",
+  "Isaiah","Jasmine","Kenneth","Leah","Michael","Nadia","Owen","Patience",
+  "Reuben","Sarah","Thomas","Ursula","Valentina","William","Xerxes","Yasmin","Zion","Deborah"
+];
+
+// ── Init ──
+function init() {
+  createShapes();
+  renderScoreboard();
+  renderBoard();
+}
+
+function createShapes() {
+  const container = document.getElementById('shapes');
+  const colors = ['#BAE6FD','#FEF9C3','#D1FAE5','#EDE9FE','#FFE4E6','#FED7AA'];
+  for (let i = 0; i < 10; i++) {
+    const s = document.createElement('div');
+    s.className = 'shape';
+    const size = Math.random() * 200 + 80;
+    s.style.cssText = `
+      width:${size}px;height:${size}px;
+      left:${Math.random()*100}%;top:${Math.random()*100}%;
+      background:${colors[i % colors.length]};
+      --dur:${(Math.random()*8+8).toFixed(1)}s;
+      --del:-${(Math.random()*8).toFixed(1)}s;
+    `;
+    container.appendChild(s);
+  }
+}
+
+// ── Scoreboard ──
+function renderScoreboard() {
+  const sb = document.getElementById('scoreboard');
+  sb.innerHTML = '';
+  teams.forEach((t, i) => {
+    const div = document.createElement('div');
+    div.className = 'team-score' + (activeTeam === i ? ' active-team' : '');
+    div.innerHTML = `
+      <span class="team-icon">${t.icon || '⭐'}</span>
+      <input class="team-name-input" value="${t.name}"
+        onchange="teams[${i}].name=this.value;renderScoreboard()"
+        onclick="event.stopPropagation()"
+        title="Click to rename">
+      ${t.subtitle ? `<div class="team-subtitle">${t.subtitle}</div>` : ''}
+      <div class="team-points" id="pts-${i}">${t.pts}</div>
+      <div class="turn-badge">${activeTeam===i ? '▶ THEIR TURN' : ''}</div>
+    `;
+    div.onclick = () => { activeTeam = i; renderScoreboard(); };
+    sb.appendChild(div);
+  });
+}
+
+// ── Board ──
+function renderBoard() {
+  const board = document.getElementById('board');
+  board.innerHTML = '';
+  CATEGORIES.forEach(cat => {
+    const h = document.createElement('div');
+    h.className = 'cat-header';
+    h.innerHTML = `<div><span class="cat-emoji">${cat.emoji}</span>${cat.short}</div>`;
+    board.appendChild(h);
+  });
+  [0,1,2,3,4].forEach(row => {
+    const pts = [100,200,300,400,500][row];
+    CATEGORIES.forEach((cat, col) => {
+      const q = QUESTIONS[col][row];
+      const tile = document.createElement('div');
+      tile.className = 'tile' + (used[col][row] ? ' used' : '') + (q.spellBee ? ' spell-bee' : '');
+      tile.dataset.pts = pts;
+      tile.innerHTML = `<span class="tile-value">${pts}</span>`;
+      if (!used[col][row]) tile.onclick = () => tileClicked(col, row);
+      board.appendChild(tile);
+    });
+  });
+}
+
+// ── Tile click → decide whether to show pre-picker ──
+function tileClicked(col, row) {
+  const q = QUESTIONS[col][row];
+  pendingTile = { col, row };
+
+  if (q.spellBee) {
+    openPrePicker('bee', col, row);
+  } else if (q.scramble) {
+    openPrePicker('verse', col, row);
+  } else {
+    // Normal question — go straight to modal
+    openQuestion(col, row, null);
+  }
+}
+
+// ── Pre-Picker ──
+function openPrePicker(type, col, row) {
+  prePickerType    = type;
+  prePickCount     = 2;
+  prePickedKids    = [];
+  prePickConfirmed = false;
+
+  const isBee = type === 'bee';
+
+  document.getElementById('pre-stripe').className      = `pre-modal-stripe ${type}`;
+  document.getElementById('pre-icon').textContent       = isBee ? '🐝' : '📜';
+  document.getElementById('pre-title').textContent      = isBee ? 'Spell Bee Question!' : 'Jumbled Verse Question!';
+  document.getElementById('pre-class-label').className  = `pre-modal-class ${type}`;
+  document.getElementById('pre-class-label').textContent = isBee
+    ? '🎓 Choose kids from Primary Class'
+    : '🎓 Choose kids from Juniors Class';
+
+  // Reset count buttons
+  document.getElementById('pre-cnt-2').classList.add('active');
+  document.getElementById('pre-cnt-3').classList.remove('active');
+
+  // Reset picked area
+  document.getElementById('pre-picked-area').innerHTML =
+    '<div class="pre-picked-placeholder">Press <strong>Shuffle</strong> to randomly pick kids ✨</div>';
+
+  // Hide confirmed banner, disable View Question
+  document.getElementById('pre-confirmed-banner').classList.remove('show');
+  const viewBtn = document.getElementById('pre-view-btn');
+  viewBtn.disabled = true;
+  viewBtn.textContent = '👁 View Question →';
+
+  document.getElementById('pre-overlay').classList.add('open');
+}
+
+function preSetCount(n) {
+  prePickCount = n;
+  document.getElementById('pre-cnt-2').classList.toggle('active', n === 2);
+  document.getElementById('pre-cnt-3').classList.toggle('active', n === 3);
+  // Reset if already shuffled
+  prePickedKids    = [];
+  prePickConfirmed = false;
+  document.getElementById('pre-picked-area').innerHTML =
+    '<div class="pre-picked-placeholder">Press <strong>Shuffle</strong> to randomly pick kids ✨</div>';
+  document.getElementById('pre-confirmed-banner').classList.remove('show');
+  document.getElementById('pre-view-btn').disabled = true;
+}
+
+function preShuffle() {
+  const pool = prePickerType === 'bee' ? PRIMARY_KIDS : JUNIOR_KIDS;
+  prePickedKids = [...pool].sort(() => Math.random() - 0.5).slice(0, prePickCount);
+  prePickConfirmed = true;
+
+  const typeClass = prePickerType;
+  const area = document.getElementById('pre-picked-area');
+  area.innerHTML = prePickedKids.map((name, i) => `
+    <div class="pre-picked-name-row">
+      <div class="pre-picked-number ${typeClass}">${i + 1}</div>
+      <div class="pre-picked-name-tag ${typeClass}">🌟 ${name}</div>
+    </div>
+  `).join('');
+
+  document.getElementById('pre-confirmed-banner').classList.add('show');
+  const viewBtn = document.getElementById('pre-view-btn');
+  viewBtn.disabled = false;
+  viewBtn.textContent = '👁 View Question →';
+}
+
+function proceedToQuestion() {
+  // Close pre-picker then open question modal
+  document.getElementById('pre-overlay').classList.remove('open');
+  openQuestion(pendingTile.col, pendingTile.row, prePickedKids.length ? prePickedKids : null);
+}
+
+function skipToQuestion() {
+  document.getElementById('pre-overlay').classList.remove('open');
+  openQuestion(pendingTile.col, pendingTile.row, null);
+}
+
+// ── Question Modal ──
+function openQuestion(col, row, pickedKids) {
+  currentTile = { col, row };
+  const q   = QUESTIONS[col][row];
+  const cat = CATEGORIES[col];
+
+  document.getElementById('modal-cat-emoji').textContent = cat.emoji;
+  document.getElementById('modal-cat-name').textContent  = `${cat.name} · ${cat.source}`;
+  document.getElementById('modal-pts').textContent       = `${q.pts} pts`;
+
+  const typeBadge = document.getElementById('modal-type');
+  typeBadge.textContent = q.type;
+  typeBadge.className   = `modal-type-badge ${q.badge}`;
+
+  document.getElementById('modal-q').textContent            = q.q;
+  document.getElementById('answer-text').textContent        = q.ans;
+  document.getElementById('answer-box').classList.remove('visible');
+  document.getElementById('btn-reveal').style.display  = '';
+  document.getElementById('btn-correct').style.display = 'none';
+  document.getElementById('btn-wrong').style.display   = 'none';
+
+  // "Answered by" banner — show selected kids if any
+  const banner = document.getElementById('answered-by-banner');
+  if (pickedKids && pickedKids.length) {
+    const typeClass = q.spellBee ? 'bee' : 'verse';
+    banner.className = `answered-by-banner ${typeClass}`;
+    banner.style.display = 'flex';
+    banner.innerHTML = `
+      <span>${q.spellBee ? '🐝' : '📜'}</span>
+      <span>Answering: <strong>${pickedKids.join(', ')}</strong></span>
+    `;
+  } else {
+    banner.style.display = 'none';
+  }
+
+  // Team buttons
+  const tb = document.getElementById('team-btns');
+  tb.innerHTML = '';
+  teams.forEach((t, i) => {
+    const b = document.createElement('button');
+    b.className = 'team-btn' + (activeTeam === i ? ` sel-${i}` : '');
+    b.textContent = t.name;
+    b.onclick = () => { activeTeam = i; refreshTeamBtns(); };
+    tb.appendChild(b);
+  });
+
+  // Scramble
+  const sa = document.getElementById('scramble-area');
+  if (q.scramble) {
+    sa.style.display = '';
+    setupScramble(q.scramble);
+  } else {
+    sa.style.display = 'none';
+  }
+
+  document.getElementById('overlay').classList.add('open');
+}
+
+function refreshTeamBtns() {
+  document.querySelectorAll('.team-btn').forEach((b, i) => {
+    b.className = 'team-btn' + (activeTeam === i ? ` sel-${i}` : '');
+  });
+}
+
+function closeModal() {
+  document.getElementById('overlay').classList.remove('open');
+  currentTile = null;
+}
+
+// ── Scramble ──
+function setupScramble(pieces) {
+  const shuffled = [...pieces].sort(() => Math.random() - 0.5);
+  const pool = document.getElementById('scramble-pool');
+  const zone = document.getElementById('scramble-zone');
+  pool.innerHTML = ''; zone.innerHTML = '';
+  shuffled.forEach((text, i) => {
+    const chip = document.createElement('div');
+    chip.className   = 'scramble-chip';
+    chip.textContent = text;
+    chip.dataset.idx = i;
+    chip.onclick = () => moveChip(chip);
+    pool.appendChild(chip);
+  });
+}
+
+function moveChip(chip) {
+  if (chip.classList.contains('placed')) {
+    chip.classList.remove('placed');
+    document.getElementById('scramble-pool').appendChild(chip);
+  } else {
+    chip.classList.add('placed');
+    document.getElementById('scramble-zone').appendChild(chip);
+  }
+}
+
+function clearScramble() {
+  const pool = document.getElementById('scramble-pool');
+  document.querySelectorAll('.scramble-chip').forEach(c => {
+    c.classList.remove('placed');
+    pool.appendChild(c);
+  });
+}
+
+// ── Reveal ──
+function revealAnswer() {
+  document.getElementById('answer-box').classList.add('visible');
+  document.getElementById('btn-reveal').style.display  = 'none';
+  document.getElementById('btn-correct').style.display = '';
+  document.getElementById('btn-wrong').style.display   = '';
+}
+
+// ── Score ──
+function scoreTeam(correct) {
+  if (activeTeam === null) { showToast('Pick a team first!', ''); return; }
+  const pts = currentTile ? QUESTIONS[currentTile.col][currentTile.row].pts : 0;
+  if (correct) {
+    teams[activeTeam].pts += pts;
+    fireConfetti();
+    showToast(`+${pts} for ${teams[activeTeam].name}! 🙌`, 'correct');
+  } else {
+    teams[activeTeam].pts -= pts;
+    showToast(`-${pts} for ${teams[activeTeam].name}`, 'wrong');
+  }
+  if (currentTile) used[currentTile.col][currentTile.row] = true;
+  renderScoreboard();
+  renderBoard();
+  pingScore(activeTeam);
+  setTimeout(closeModal, 380);
+}
+
+function pingScore(i) {
+  const el = document.getElementById(`pts-${i}`);
+  if (!el) return;
+  el.style.transform = 'scale(1.6)';
+  setTimeout(() => { el.style.transform = ''; }, 420);
+}
+
+// ── Toast ──
+function showToast(msg, type) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = 'toast' + (type ? ` ${type}` : '');
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2400);
+}
+
+// ── Confetti ──
+function fireConfetti() {
+  const canvas = document.getElementById('confetti-canvas');
+  canvas.width  = window.innerWidth;
+  canvas.height = window.innerHeight;
+  const ctx    = canvas.getContext('2d');
+  const colors = ['#60A5FA','#FACC15','#34D399','#FB7185','#A78BFA','#FDBA74','#ffffff','#6EE7B7'];
+  const particles = Array.from({length:140}, () => ({
+    x: Math.random() * canvas.width,
+    y: Math.random() * -180,
+    w: Math.random() * 11 + 5,
+    h: Math.random() * 5 + 3,
+    color: colors[Math.floor(Math.random() * colors.length)],
+    rot: Math.random() * 360,
+    vx: (Math.random() - .5) * 5,
+    vy: Math.random() * 4 + 2,
+    vr: (Math.random() - .5) * 9,
+    shape: Math.random() > 0.5 ? 'rect' : 'circle'
+  }));
+  let frame = 0;
+  function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    particles.forEach(p => {
+      ctx.save(); ctx.translate(p.x, p.y); ctx.rotate(p.rot * Math.PI / 180);
+      ctx.fillStyle = p.color;
+      if (p.shape === 'circle') { ctx.beginPath(); ctx.arc(0,0,p.w/2,0,Math.PI*2); ctx.fill(); }
+      else { ctx.fillRect(-p.w/2,-p.h/2,p.w,p.h); }
+      ctx.restore();
+      p.x += p.vx; p.y += p.vy; p.rot += p.vr; p.vy += 0.14;
+    });
+    if (++frame < 140) requestAnimationFrame(draw);
+    else ctx.clearRect(0, 0, canvas.width, canvas.height);
+  }
+  draw();
+}
+
+// ── Winner ──
+function showWinner() {
+  const sorted = [...teams].sort((a,b) => b.pts - a.pts);
+  document.getElementById('winner-title').textContent    = `${sorted[0].name} Wins! 🎉`;
+  document.getElementById('winner-subtitle').textContent = `With ${sorted[0].pts} points — God bless you all! 🙏`;
+  const medals = ['🥇','🥈','🥉','4️⃣'];
+  document.getElementById('final-scores').innerHTML = sorted.map((t,i) =>
+    `<div class="final-score-row${i===0?' top':''}">${medals[i]} ${t.name}: ${t.pts} pts</div>`
+  ).join('');
+  document.getElementById('winner-screen').classList.add('open');
+  fireConfetti();
+  setTimeout(fireConfetti, 700);
+  setTimeout(fireConfetti, 1400);
+}
+
+function restartGame() {
+  teams.forEach(t => t.pts = 0);
+  used       = Array.from({length:5}, () => Array(5).fill(false));
+  activeTeam = null;
+  document.getElementById('winner-screen').classList.remove('open');
+  renderScoreboard();
+  renderBoard();
+}
+
+init();
+</script>
+</body>
+</html>
